@@ -20,7 +20,11 @@ class Notifier
 	    $message->setSubject($title);
 	    $message->setBody(array('model' => $model, 'title' => $title), 'text/html');
 
-	    $message->addTo(Yii::app()->params['notifyEmail']);
+	    foreach (mb_split(';|,',Yii::app()->params['notifyEmail']) as $recipient)
+	    {
+		$message->addTo($recipient);
+	    }
+
 	    $message->setFrom(array(Yii::app()->params['senderEmail'] => Yii::app()->name));
 
 	    Yii::app()->mail->send($message);
