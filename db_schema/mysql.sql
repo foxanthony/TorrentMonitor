@@ -76,6 +76,7 @@ VALUES
 	(5,'password','1f10c9fd49952a7055531975c06c5bd8'),
 	(6,'auth','1'),
 	(4,'send_warning','0');
+	(7,'adapter','file'),
 
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -92,6 +93,7 @@ CREATE TABLE `torrent` (
   `name` varchar(250) NOT NULL DEFAULT '',
   `hd` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `torrent_id` int(9) unsigned NOT NULL DEFAULT '0',
+  `torrent_hash` char(40) NOT NULL,
   `ep` varchar(10) DEFAULT '',
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)

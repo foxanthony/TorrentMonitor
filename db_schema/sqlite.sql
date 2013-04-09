@@ -39,6 +39,7 @@ INSERT INTO "settings" VALUES (3, 'send', '1');
 INSERT INTO "settings" VALUES (4, 'send_warning', '0');
 INSERT INTO "settings" VALUES (5, 'password', '1f10c9fd49952a7055531975c06c5bd8');
 INSERT INTO "settings" VALUES (6, 'auth', '1');
+INSERT INTO "settings" VALUES (7, 'adapter', 'file');
 
 CREATE TABLE `torrent` (
   `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -46,6 +47,7 @@ CREATE TABLE `torrent` (
   `name` varchar(250) NOT NULL DEFAULT '',
   `hd` INTEGER NOT NULL DEFAULT '0',
   `torrent_id` INTEGER NOT NULL DEFAULT '0',
+  `torrent_hash` char(40) NOT NULL,
   `ep` varchar(10) DEFAULT '',
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 );
