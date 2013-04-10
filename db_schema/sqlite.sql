@@ -47,7 +47,7 @@ CREATE TABLE `torrent` (
   `name` varchar(250) NOT NULL DEFAULT '',
   `hd` INTEGER NOT NULL DEFAULT '0',
   `torrent_id` INTEGER NOT NULL DEFAULT '0',
-  `torrent_hash` char(40) NOT NULL,
+  `torrent_hash` char(40) NULL,
   `ep` varchar(10) DEFAULT '',
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
 );
