@@ -262,7 +262,7 @@ class Database
     		
         if (Database::getDbType() == 'pgsql')
         {
-            $stmt = Database::getInstance()->dbh->prepare("SELECT id, tracker, name, hd, torrent_id, ep, timestamp, 
+            $stmt = Database::getInstance()->dbh->prepare("SELECT id, tracker, name, hd, torrent_id, torrent_hash, ep, timestamp,  
                             to_char(timestamp, 'dd') AS day,
                             to_char(timestamp, 'mm') AS month,
                             to_char(timestamp, 'YYYY') AS year,
@@ -272,7 +272,7 @@ class Database
         }
         elseif (Database::getDbType() == 'mysql')
         {
-            $stmt = Database::getInstance()->dbh->prepare("SELECT `id`, `tracker`, `name`, `hd`, `torrent_id`, `ep`, `timestamp`, 
+            $stmt = Database::getInstance()->dbh->prepare("SELECT `id`, `tracker`, `name`, `hd`, `torrent_id`, `torrent_hash`, `ep`, `timestamp`, 
                             DATE_FORMAT(`timestamp`, '%d') AS `day`, 
                             DATE_FORMAT(`timestamp`, '%m') AS `month`, 
                             DATE_FORMAT(`timestamp`, '%Y') AS `year`, 
@@ -282,7 +282,7 @@ class Database
         }
         elseif (Database::getDbType() == 'sqlite')
         {
-            $stmt = Database::getInstance()->dbh->prepare("SELECT `id`, `tracker`, `name`, `hd`, `torrent_id`, `ep`, `timestamp`, 
+            $stmt = Database::getInstance()->dbh->prepare("SELECT `id`, `tracker`, `name`, `hd`, `torrent_id`, `torrent_hash`, `ep`, `timestamp`, 
                             strftime('%d', `timestamp`) AS `day`, 
                             strftime('%m', `timestamp`) AS `month`, 
                             strftime('%Y', `timestamp`) AS `year`, 
@@ -300,6 +300,7 @@ class Database
                 $resultArray[$i]['name'] = $row['name'];
                 $resultArray[$i]['hd'] = $row['hd'];
                 $resultArray[$i]['torrent_id'] = $row['torrent_id'];
+                $resultArray[$i]['torrent_hash'] = $row['torrent_hash'];
                 $resultArray[$i]['ep'] = $row['ep'];
                 $resultArray[$i]['timestamp'] = $row['timestamp'];
                 $resultArray[$i]['day'] = $row['day'];
@@ -321,6 +322,8 @@ class Database
             $fields = 'hd, ep';
         if ($tracker == 'rutracker.org' || $tracker == 'nnm-club.ru' || $tracker == 'rutor.org')
             $fields = 'torrent_id';
+        
+        $fields = $fields . ', torrent_hash';
             
         $stmt = Database::getInstance()->dbh->prepare("SELECT name, timestamp, ".$fields." FROM torrent WHERE tracker = :tracker ORDER BY id");
         $stmt->bindParam(':tracker', $tracker);
@@ -336,8 +339,10 @@ class Database
                     $resultArray[$i]['hd'] = $row['hd'];
                     $resultArray[$i]['ep'] = $row['ep'];
                 }
-                if ($tracker == 'rutracker.org' || $tracker == 'nnm-club.ru' || $tracker == 'rutor.org')
+                else if ($tracker == 'rutracker.org' || $tracker == 'nnm-club.ru' || $tracker == 'rutor.org')
                     $resultArray[$i]['torrent_id'] = $row['torrent_id'];
+                
+                $resultArray[$i]['torrent_hash'] = $row['torrent_hash'];                
                 $i++;
             }
             if ( ! empty($resultArray))
@@ -671,6 +676,21 @@ class Database
         else
             return FALSE;
         $stmt = NULL;
+    }
+    
+    public static function setNewTorrentHash($id, $hash)
+    {
+    	if (Database::getDbType() == 'pgsql')
+    		$stmt = Database::getInstance()->dbh->prepare("UPDATE torrent SET torrent_hash = :hash WHERE id = :id");
+    	else
+    		$stmt = Database::getInstance()->dbh->prepare("UPDATE `torrent` SET `torrent_hash` = :hash WHERE `id` = :id");
+    	$stmt->bindParam(':hash', $hash);
+    	$stmt->bindParam(':id', $id);
+    	if ($stmt->execute())
+    		return TRUE;
+    	else
+    		return FALSE;
+    	$stmt = NULL;
     }
     
     public static function setNewDate($id, $date)
