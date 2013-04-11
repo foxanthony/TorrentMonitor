@@ -11,14 +11,14 @@ class TorrentParser
 			$ret = array();
 			while (strlen($str) && $str{0} != 'e')
 			{
-				$key = parse_torrent($str);
+				$key = TorrentParser::parse($str);
 				if (strlen($str) == strlen($s))
 					break; // prevent endless cycle if no changes made
 				if (!strcmp($key, "info"))
 				{
 					$save = $str;
 				}
-				$value = parse_torrent($str);
+				$value = TorrentParser::parse($str);
 				if (!strcmp($key, "info"))
 				{
 					$tosha = substr($save, 0, strlen($save) - strlen($str));
@@ -61,7 +61,7 @@ class TorrentParser
 			$str = substr($str, 1);
 			while (strlen($str) && $str{0} != 'e')
 			{
-				$value = parse_torrent($str);
+				$value = TorrentParser::parse($str);
 				if (strlen($str) == strlen($s))
 				{
 					break; // prevent endless cycle if no changes made
