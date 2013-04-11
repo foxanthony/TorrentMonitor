@@ -215,7 +215,7 @@ class kinozal
 		}
 	}
 	
-    public static function work($array, $id, $tracker, $name, $torrent_id, $timestamp)
+    public static function work($array, $id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash)
     {
 		//проверяем удалось ли получить дату со страницы
 		if (isset($array[1]))
@@ -246,10 +246,12 @@ class kinozal
 					}
 					else
 					{
-    					$client = ClientAdapterFactory::getStorage('file');
-    					$client->store($torrent, $id, $tracker, $name, $torrent_id, $timestamp);
+    					$client = ClientAdapterFactory::getStorage('transmission');
+    					$client->store($torrent, $torrent_hash, $id, $tracker, $name, $torrent_id, $timestamp);
     					//обновляем время регистрации торрента в базе
     					Database::setNewDate($id, $date);
+    					$torrent_array = TorrentParser::parse($torrent);
+    					Database::setNewTorrentHash($id, $torrent_array['info_hash']);
     					//отправляем уведомлении о новом торренте
     					$message = $name.' обновлён.';
     					Notification::sendNotification('notification', $date_str, $tracker, $message);
@@ -282,7 +284,7 @@ class kinozal
     }
 	
 	//основная функция
-	public static function main($id, $tracker, $name, $torrent_id, $timestamp)
+	public static function main($id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash)
 	{
 		$cookie = Database::getCookie($tracker);
 		if (kinozal::checkCookie($cookie))
@@ -303,9 +305,9 @@ class kinozal
 			{
 				//ищем на странице дату регистрации торрента
 				if (preg_match("/<li>Обновлен<span class=\"floatright green n\">(.*)<\/span><\/li>/", $page, $array))
-    				kinozal::work($array, $id, $tracker, $name, $torrent_id, $timestamp);
+    				kinozal::work($array, $id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash);
 				elseif (preg_match("/<li>Залит<span class=\"floatright green n\">(.*)<\/span><\/li>/", $page, $array))
-				    kinozal::work($array, $id, $tracker, $name, $torrent_id, $timestamp);
+				    kinozal::work($array, $id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash);
 				else
 				{
 					//устанавливаем варнинг

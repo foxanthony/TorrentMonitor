@@ -262,7 +262,7 @@ Content-Disposition: form-data; name=\"login\"
 	}
 	
 	//основная функция
-	public static function main($id, $tracker, $name, $hd, $ep, $timestamp)
+	public static function main($id, $tracker, $name, $hd, $ep, $timestamp, $torrent_hash)
 	{
 		//проверяем небыло ли до этого уже ошибок
 		if (empty(novafilm::$exucution) || (novafilm::$exucution))
@@ -362,10 +362,12 @@ Content-Disposition: form-data; name=\"login\"
 							$torrent = novafilm::getTorrent($serial['link'], novafilm::$sess_cookie);
 							$amp = ($hd) ? 'HD' : NULL;
 							//сохраняем торрент в файл
-							$client = ClientAdapterFactory::getStorage('file');
-							$client->store($torrent, $id, $tracker, $name, $id, $timestamp, array('filename' => $file));							
+							$client = ClientAdapterFactory::getStorage('transmission');
+							$client->store($torrent, $torrent_hash, $id, $tracker, $name, $id, $timestamp, array('filename' => $file));							
 							//обновляем время регистрации торрента в базе
 							Database::setNewDate($id, $serial['date']);
+							$torrent_array = TorrentParser::parse($torrent);
+							Database::setNewTorrentHash($id, $torrent_array['info_hash']);
 							//обновляем сведения о последнем эпизоде
 							Database::setNewEpisode($id, $serial['episode']);
 							$episode = (substr($episode, 0, 1) == 0) ? substr($episode, 1, 1) : $episode;

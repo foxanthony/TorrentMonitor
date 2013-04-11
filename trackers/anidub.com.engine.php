@@ -201,7 +201,7 @@ class anidub
 	}
 	
 	//основная функция
-	public static function main($id, $tracker, $name, $torrent_id, $timestamp)
+	public static function main($id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash)
 	{
 		$cookie = Database::getCookie($tracker);
 		if (anidub::checkCookie($cookie))
@@ -242,10 +242,12 @@ class anidub
                                 $torrent_id_name = $array[2];
 								//сохраняем торрент в файл
 								$torrent = anidub::getTorrent($torrent_id, $torrent_id_name, anidub::$sess_cookie);
-								$client = ClientAdapterFactory::getStorage('file');
-								$client->store($torrent, $id, $tracker, $name, $torrent_id, $timestamp);
+								$client = ClientAdapterFactory::getStorage('transmission');
+								$client->store($torrent, $torrent_hash, $id, $tracker, $name, $torrent_id, $timestamp);
 								//обновляем время регистрации торрента в базе
 								Database::setNewDate($id, $date);
+								$torrent_array = TorrentParser::parse($torrent);
+								Database::setNewTorrentHash($id, $torrent_array['info_hash']);
 								//отправляем уведомлении о новом торренте
 								$message = $name.' обновлён.';
 								Notification::sendNotification('notification', $date_str, $tracker, $message);

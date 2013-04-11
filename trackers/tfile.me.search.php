@@ -68,8 +68,8 @@ class tfileSearch extends tfile
 				if (is_string($torrent_id))
 				{
 					$torrent = tfile::getTorrent($torrent_id);
-					$client = ClientAdapterFactory::getStorage('file');
-					$client->store($torrent, $toDownload[$i]['id'], $tracker, $toDownload[$i]['threme'], $toDownload[$i]['threme_id'], time());
+					$client = ClientAdapterFactory::getStorage('transmission');
+					$client->store($torrent, null, $toDownload[$i]['id'], $tracker, $toDownload[$i]['threme'], $toDownload[$i]['threme_id'], time());
 					//обновляем время регистрации торрента в базе
 					Database::setDownloaded($toDownload[$i]['id']);
 					//отправляем уведомлении о новом торренте

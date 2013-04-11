@@ -190,7 +190,7 @@ class nnmclub
 		}
 	}
 	
-	public static function main($id, $tracker, $name, $torrent_id, $timestamp)
+	public static function main($id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash)
 	{
 		$cookie = Database::getCookie($tracker);
 		if (nnmclub::checkCookie($cookie))
@@ -231,10 +231,12 @@ class nnmclub
 									//сохраняем торрент в файл
 									$torrent_id = $link[1];
 									$torrent = nnmclub::getTorrent($torrent_id, nnmclub::$sess_cookie);
-									$client = ClientAdapterFactory::getStorage('file');
-									$client->store($torrent, $id, $tracker, $name, $torrent_id, $timestamp);
+									$client = ClientAdapterFactory::getStorage('transmission');
+									$client->store($torrent, $torrent_hash, $id, $tracker, $name, $torrent_id, $timestamp);
 									//обновляем время регистрации торрента в базе
 									Database::setNewDate($id, $date);
+									$torrent_array = TorrentParser::parse($torrent);
+									Database::setNewTorrentHash($id, $torrent_array['info_hash']);
 									//отправляем уведомлении о новом торренте
 									$message = $name.' обновлён.';
 									Notification::sendNotification('notification', nnmclub::dateNumToString($date_str), $tracker, $message);

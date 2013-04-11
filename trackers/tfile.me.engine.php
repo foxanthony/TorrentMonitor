@@ -96,7 +96,7 @@ class tfile
 	}
 
 	//основная функция
-	public static function main($id, $tracker, $name, $torrent_id, $timestamp)
+	public static function main($id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash)
 	{
 		tfile::$exucution = TRUE;
 
@@ -130,10 +130,12 @@ class tfile
 								{
 									//сохраняем торрент в файл
 									$torrent = tfile::getTorrent($torrent_id);
-									$client = ClientAdapterFactory::getStorage('file');
-									$client->store($torrent, $id, $tracker, $name, $torrent_id, $timestamp);
+									$client = ClientAdapterFactory::getStorage('transmission');
+									$client->store($torrent, $torrent_hash, $id, $tracker, $name, $torrent_id, $timestamp);
 									//обновляем время регистрации торрента в базе
 									Database::setNewDate($id, $date);
+									$torrent_array = TorrentParser::parse($torrent);
+									Database::setNewTorrentHash($id, $torrent_array['info_hash']);										
 									//отправляем уведомлении о новом торренте
 									$message = $name.' обновлён.';
 									Notification::sendNotification('notification', $date_str, $tracker, $message);

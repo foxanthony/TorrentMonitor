@@ -76,7 +76,7 @@ class rutor
 	}
 
 	//основная функция
-	public static function main($id, $tracker, $name, $torrent_id, $timestamp)
+	public static function main($id, $tracker, $name, $torrent_id, $timestamp, $torrent_hash)
 	{
 		rutor::$exucution = TRUE;
 
@@ -106,10 +106,12 @@ class rutor
 							{
 								//сохраняем торрент в файл
 								$torrent = rutor::getTorrent($torrent_id, rutor::$sess_cookie);
-								$client = ClientAdapterFactory::getStorage('file');
-								$client->store($torrent, $id, $tracker, $name, $torrent_id, $timestamp);
+								$client = ClientAdapterFactory::getStorage('transmission');
+								$client->store($torrent, $torrent_hash, $id, $tracker, $name, $torrent_id, $timestamp);
 								//обновляем время регистрации торрента в базе
 								Database::setNewDate($id, $date);
+								$torrent_array = TorrentParser::parse($torrent);
+								Database::setNewTorrentHash($id, $torrent_array['info_hash']);
 								//отправляем уведомлении о новом торренте
 								$message = $name.' обновлён.';
 								Notification::sendNotification('notification', rutor::dateNumToString($date_str), $tracker, $message);
