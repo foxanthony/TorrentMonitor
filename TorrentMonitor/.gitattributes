@@ -1,0 +1,10 @@
+*.php text eol=native
+*.bat text eol=crlf
+*.sql text eol=native
+*.xml text eol=native
+*.css text eol=native
+.htaccess text eol=native
+.gitignore text eol=native
+.gitattributes text eol=native
+yiic text eol=lf
+
