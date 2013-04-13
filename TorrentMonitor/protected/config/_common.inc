@@ -15,6 +15,7 @@ $db = array(
 	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/torrent_monitor.db',
 );
 */
+
 $adminEmail = 'webmaster@example.com';
 
 // -- Internal parameters --
