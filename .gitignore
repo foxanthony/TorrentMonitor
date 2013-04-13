@@ -1,3 +1,6 @@
 .settings
 .project
 .buildpath
+TorrentMonitor/protected/config/console.php
+TorrentMonitor/protected/config/main.php
+TorrentMonitor/protected/config/test.php
