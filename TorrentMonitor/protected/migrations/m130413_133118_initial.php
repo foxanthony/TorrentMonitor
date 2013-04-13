@@ -21,7 +21,7 @@ class m130413_133118_initial extends CDbMigration
 		    'title' => 'string NOT NULL',
 		    'last_updated' => 'timestamp NULL',
 		    'tracker' => 'string NOT NULL',
-		    'torrent_id' => 'integer',
+		    'torrent_id' => 'integer NULL',
 		    'CONSTRAINT fk_torrent_monitor_subject_torrent_id FOREIGN KEY (torrent_id) REFERENCES torrent_monitor_torrent (id) ON UPDATE CASCADE ON DELETE CASCADE'
 		));
 
