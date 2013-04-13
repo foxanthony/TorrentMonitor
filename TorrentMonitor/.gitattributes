@@ -3,6 +3,7 @@
 *.sql text eol=native
 *.xml text eol=native
 *.css text eol=native
+*.js text eol=native
 .htaccess text eol=native
 .gitignore text eol=native
 .gitattributes text eol=native
