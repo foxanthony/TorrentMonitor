@@ -8,29 +8,31 @@ class TransmissionClient implements ClientAdapter
     {
     	try 
 		{
-			$rpc = new TransmissionRPC();
+			$rpc = new TransmissionRPC('http://192.168.1.108:9091/transmission/rpc');
 			
-			$rpc->url = 'http://192.168.1.108:9091/transmission/rpc';
-			
-			$result = $rpc.remove(array($old_torrent_hash));
-			
-			if ($result->result != "success")
+			if ($old_torrent_hash != null)
 			{
+			    $result = $rpc->remove(array($old_torrent_hash));
+			
+			    if ($result->result != "success")
+			    {
 				return array(false, $result->result);
+			    }
 			}
 			
-			$result = $rpc.add_metainfo($torrent);
+			$result = $rpc->add_metainfo($torrent);
 			
 			if ($result->result != "success")
 			{
-				return array(false, $result->result);
+			    return array(false, $result->result);
 			}	
 			
-			return array(true, "success");			
+			return array(true, "success");
+
 		}
 		catch (Exception $e)
 		{
-			return array(false,$e.getMessage());			 
+		    return array(false,$e->getMessage());
 		}
     }
 }
