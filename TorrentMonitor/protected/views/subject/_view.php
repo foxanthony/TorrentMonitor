@@ -24,5 +24,4 @@
 	<?php echo CHtml::encode($data->torrent_id); ?>
 	<br />
 
-
 </div>

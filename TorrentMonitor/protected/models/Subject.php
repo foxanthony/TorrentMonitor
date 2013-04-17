@@ -42,7 +42,7 @@ class Subject extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('url, title, tracker', 'required'),
+			array('url, title', 'required'),
 			array('torrent_id', 'numerical', 'integerOnly'=>true),
 			array('url, title, tracker', 'length', 'max'=>255),
 			array('last_updated', 'safe'),

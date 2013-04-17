@@ -64,6 +64,7 @@ return array(
 		),
 	    ),
 	),
+//	'theme'=>'bootstrap', // requires you to copy the theme under your themes directory
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
