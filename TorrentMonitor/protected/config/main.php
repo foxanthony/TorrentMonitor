@@ -15,6 +15,7 @@ return array(
 	'name'=>$appName,
 	'preload'=>$preload,
 	'import'=>$import,
+	'language'=>$language,
 	// application components
 	'components'=>array(
 		'user'=>array(

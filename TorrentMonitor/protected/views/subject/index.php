@@ -4,14 +4,14 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Add subject','url'=>array('create'))
+	array('label'=>Yii::t('app','Add subject'),'url'=>array('create'))
 );
 ?>
 
 <h1>Subjects</h1>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Add subject',
+    'label'=>Yii::t('app','Add subject'),
     'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
     'size'=>'normal',
     'url'=> array('/subject/create') // null, 'large', 'small' or 'mini'

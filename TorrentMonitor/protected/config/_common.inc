@@ -1,6 +1,9 @@
 <?php
 // -- User parameters --
 
+// Language
+$language= 'ru';
+
 // MySQL
 $db = array(
 	'connectionString' => 'mysql:host=localhost;dbname=torrent_monitor',
