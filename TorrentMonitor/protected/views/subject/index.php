@@ -1,20 +1,16 @@
 <?php
 $this->breadcrumbs=array(
-	'Subjects',
-);
-
-$this->menu=array(
-	array('label'=>Yii::t('app','Add subject'),'url'=>array('create'))
+	Yii::t('app','Subjects'),
 );
 ?>
 
-<h1>Subjects</h1>
+<h1><?php echo Yii::t('app','Subjects');?></h1>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
     'label'=>Yii::t('app','Add subject'),
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'type'=>'primary',
     'size'=>'normal',
-    'url'=> array('/subject/create') // null, 'large', 'small' or 'mini'
+    'url'=> array('/subject/create')
 )); ?>
 
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
@@ -22,11 +18,12 @@ $this->menu=array(
     'dataProvider'=>$dataProvider,
     'template'=>"{items}",
     'columns'=>array(
-        array('name'=>'title', 'header'=>'Title'),
-        array('name'=>'url', 'header'=>'URL'),
-        array('name'=>'tracker', 'header'=>'Tracker'),
+        array('name'=>'title'),
+        array('name'=>'url'),
+        array('name'=>'tracker'),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
+	    'template'=>'{delete}',
             'htmlOptions'=>array('style'=>'width: 50px'),
         ),
     ),

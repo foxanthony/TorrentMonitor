@@ -70,12 +70,12 @@ class Subject extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'url' => 'Url',
-			'title' => 'Title',
-			'last_updated' => 'Last Updated',
-			'tracker' => 'Tracker',
-			'torrent_id' => 'Torrent',
+			'id' => Yii::t('app','ID'),
+			'url' => Yii::t('app','URL'),
+			'title' => Yii::t('app','Title'),
+			'last_updated' => Yii::t('app','Last Updated'),
+			'tracker' => Yii::t('app','Tracker'),
+			'torrent_id' => Yii::t('app','Torrent'),
 		);
 	}
 

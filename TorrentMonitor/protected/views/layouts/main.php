@@ -10,6 +10,7 @@
 <body>
 
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
+    'fixed'=>null,
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
@@ -22,14 +23,16 @@
     ),
 )); ?>
 
-<div class="container" id="page">
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?>
-	<?php endif?>
+<div class="container">
 
-	<?php echo $content; ?>
+<?php if(isset($this->breadcrumbs)):?>
+	<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+		'links'=>$this->breadcrumbs,
+)); ?>
+<?php endif?>
+
+<?php echo $content; ?>
+
 </div>
 </body>
 </html>
