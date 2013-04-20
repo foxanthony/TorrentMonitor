@@ -64,8 +64,8 @@ class Torrent extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'hash' => 'Hash',
+			'id' => Yii::t('models_Torrent','ID'),
+			'hash' => Yii::t('models_Torrent','Hash'),
 		);
 	}
 

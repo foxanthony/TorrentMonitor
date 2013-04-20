@@ -3,7 +3,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="help-block"><?php echo Yii::t('app','Fields with {asterisk} are required.', array('{asterisk}' => '<span class="required">*</span>'));?></p>
+	<p class="help-block"><?php echo Yii::t('views_subject__form','Fields with {asterisk} are required.', array('{asterisk}' => '<span class="required">*</span>'));?></p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -15,7 +15,7 @@
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'type'=>'primary',
-			'label'=>$model->isNewRecord ? Yii::t('app','Add') : Yii::t('app','Save'),
+			'label'=>$model->isNewRecord ? Yii::t('views_subject__form','Add') : Yii::t('views_subject__form','Save'),
 		)); ?>
 	</div>
 

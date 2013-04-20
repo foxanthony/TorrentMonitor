@@ -2,9 +2,9 @@
 /* @var $this SiteController */
 /* @var $error array */
 
-$this->pageTitle=Yii::app()->name . ' - Error';
+$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('views_site_error','Error');
 $this->breadcrumbs=array(
-	'Error',
+	Yii::t('views_site_error','Error'),
 );
 ?>
 

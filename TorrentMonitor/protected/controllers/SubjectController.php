@@ -76,7 +76,7 @@ class SubjectController extends Controller
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 		}
 		else
-			throw new CHttpException(400,Yii::t('app','Invalid request. Please do not repeat this request again.'));
+			throw new CHttpException(400,Yii::t('controllers_SubjectController','Invalid request. Please do not repeat this request again.'));
 	}
 
 	/**
@@ -99,7 +99,7 @@ class SubjectController extends Controller
 	{
 		$model=Subject::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,Yii::t('app','The requested page does not exist.'));
+			throw new CHttpException(404,Yii::t('controllers_SubjectController','The requested page does not exist.'));
 		return $model;
 	}
 

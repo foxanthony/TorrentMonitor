@@ -3,15 +3,15 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . Yii::t('app',' - Login');
+$this->pageTitle=Yii::app()->name . ' - ' . Yii::t('views_site_login','Login');
 $this->breadcrumbs=array(
-	Yii::t('app','Login'),
+	Yii::t('views_site_login','Login'),
 );
 ?>
 
-<h1><?php echo Yii::t('app','Login'); ?></h1>
+<h1><?php echo Yii::t('views_site_login','Login'); ?></h1>
 
-<p><?php echo Yii::t('app','Please fill out the following form with your login credentials:'); ?></p>
+<p><?php echo Yii::t('views_site_login','Please fill out the following form with your login credentials:'); ?></p>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'login-form',
@@ -21,7 +21,7 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<p class="help-block"><?php echo Yii::t('app','Fields with {asterisk} are required.', array('{asterisk}' => '<span class="required">*</span>'));?></p>
+	<p class="help-block"><?php echo Yii::t('views_site_login','Fields with {asterisk} are required.', array('{asterisk}' => '<span class="required">*</span>'));?></p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -33,7 +33,7 @@ $this->breadcrumbs=array(
 	    <?php $this->widget('bootstrap.widgets.TbButton', array(
 		'buttonType'=>'submit',
 		'type'=>'primary',
-		'label'=>Yii::t('app','Login'),
+		'label'=>Yii::t('views_site_login_label','Login'),
 	    )); ?>
 	</div>
 

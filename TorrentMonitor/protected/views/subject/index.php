@@ -1,13 +1,13 @@
 <?php
 $this->breadcrumbs=array(
-	Yii::t('app','Subjects'),
+	Yii::t('views_subject_index','Subjects'),
 );
 ?>
 
-<h1><?php echo Yii::t('app','Subjects');?></h1>
+<h1><?php echo Yii::t('views_subject_index','Subjects');?></h1>
 
 <?php $this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>Yii::t('app','Add subject'),
+    'label'=>Yii::t('views_subject_index','Add subject'),
     'type'=>'primary',
     'size'=>'normal',
     'url'=> array('/subject/create')
@@ -21,6 +21,7 @@ $this->breadcrumbs=array(
         array('name'=>'title'),
         array('name'=>'url'),
         array('name'=>'tracker'),
+        array('name'=>'last_updated'),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
 	    'template'=>'{delete}',

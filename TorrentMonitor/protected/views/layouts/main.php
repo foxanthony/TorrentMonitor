@@ -15,9 +15,9 @@
         array(
             'class'=>'bootstrap.widgets.TbMenu',
             'items'=>array(
-                array('label'=>Yii::t('app','Subjects'), 'url'=>array('/subject/index'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>Yii::t('app','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>Yii::t('app','Logout ({alias})', array('{alias}'=>Yii::app()->user->name)), 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                array('label'=>Yii::t('view_layouts_main','Subjects'), 'url'=>array('/subject/index'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>Yii::t('view_layouts_main','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>Yii::t('view_layouts_main','Logout ({alias})', array('{alias}'=>Yii::app()->user->name)), 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
             ),
         ),
     ),
