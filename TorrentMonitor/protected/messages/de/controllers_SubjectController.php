@@ -19,4 +19,5 @@
 return array (
   'Invalid request. Please do not repeat this request again.' => '',
   'The requested page does not exist.' => '',
+  'There is no tracker supports provided URL.' => '',
 );

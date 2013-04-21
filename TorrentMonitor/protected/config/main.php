@@ -32,6 +32,7 @@ return array(
 			),
 		),
 		*/
+		'trackerManager'=>$trackerManager,
 		'db'=>$db,
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

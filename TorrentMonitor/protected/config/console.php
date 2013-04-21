@@ -11,6 +11,7 @@ return array(
 	'language'=>$language,
 	// application components
 	'components'=>array(
+		'trackerManager'=>$trackerManager,
 		'db'=>$db,
 		'log'=>array(
 			'class'=>'CLogRouter',

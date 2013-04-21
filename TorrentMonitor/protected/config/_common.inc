@@ -4,6 +4,14 @@
 // Language
 $language= 'ru';
 
+// Trackers
+$trackerManager = array(
+    'class'=>'TrackerManager',
+    'trackers'=>array(
+	array('class' => 'RutrackerTracker', 'params' => array('username'=>'','password'=>'')),
+    )
+);
+
 // MySQL
 $db = array(
 	'connectionString' => 'mysql:host=localhost;dbname=torrent_monitor',

@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'There is no tracker supports provided URL.' => 'Нет трекера поддерживающего данную ссылку.',
   'Invalid request. Please do not repeat this request again.' => 'Неверный запрос. Пожалуйста, не повторяйте этот запрос снова.',
   'The requested page does not exist.' => 'Запрошенная страница не существует.',
 );

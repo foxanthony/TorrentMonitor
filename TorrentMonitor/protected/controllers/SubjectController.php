@@ -50,8 +50,20 @@ class SubjectController extends Controller
 		if(isset($_POST['Subject']))
 		{
 			$model->attributes=$_POST['Subject'];
-			if($model->save())
+
+			$trackerName = Yii::app()->trackerManager->getSubjectTrackerName($model->url);
+
+			if (!isset($trackerName))
+			{
+			    $model->addError('tracker',Yii::t('controllers_SubjectController','There is no tracker supports provided URL.'));
+			}
+			else 
+			{
+			    $model->tracker = $trackerName;
+
+			    if ($model->save())
 				$this->redirect(array('index'));
+			}
 		}
 
 		$this->render('create',array(
