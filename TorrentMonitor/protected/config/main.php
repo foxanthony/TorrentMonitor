@@ -33,6 +33,7 @@ return array(
 		),
 		*/
 		'trackerManager'=>$trackerManager,
+		'torrentClient'=>$torrentClient,
 		'db'=>$db,
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

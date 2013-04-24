@@ -12,6 +12,7 @@ return array(
 	// application components
 	'components'=>array(
 		'trackerManager'=>$trackerManager,
+		'torrentClient'=>$torrentClient,
 		'db'=>$db,
 		'log'=>array(
 			'class'=>'CLogRouter',

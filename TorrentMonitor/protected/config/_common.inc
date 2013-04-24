@@ -6,10 +6,16 @@ $language= 'ru';
 
 // Trackers
 $trackerManager = array(
-    'class'=>'TrackerManager',
-    'trackers'=>array(
-	array('class' => 'RutrackerTracker', 'params' => array('username'=>'','password'=>'')),
+    'class' => 'TrackerManager',
+    'trackers' => array(
+	array('class' => 'RutrackerTracker', 'params' => array('username' => '','password' => '')),
     )
+);
+
+// Client
+$torrentClient = array(
+    'class' => 'TransmissionClient',
+    'params' => array('url' => 'http://192.168.1.108:9091/transmission/rpc','username' => null,'password' => null)
 );
 
 // MySQL
