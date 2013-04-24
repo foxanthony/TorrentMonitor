@@ -63,6 +63,7 @@ class RutrackerTracker implements ITracker
      * Get last modified date and time on specified subject.
      * @param string $url URL to get datetime.
      * @return mixed Subject last modified date and time.
+     * @exception CException thrown when something goes wrong.
      */
     public function getSubjectLastUpdated($url)
     {
