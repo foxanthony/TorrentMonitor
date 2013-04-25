@@ -63,7 +63,7 @@ class RutrackerTracker implements ITracker
      * Get last modified date and time on specified subject.
      * @param string $url URL to get datetime.
      * @return mixed Subject last modified date and time.
-     * @exception CException thrown when something goes wrong.
+     * @exception Exception thrown when something goes wrong.
      */
     public function getSubjectLastUpdated($url)
     {
@@ -71,17 +71,17 @@ class RutrackerTracker implements ITracker
 
 	if (empty($page))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','page is empty'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','page is empty'));
 	}
 
 	if (!preg_match('/<span title="Когда зарегистрирован">\[ (.+) \]<\/span>/', $page, $array))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','cannot find torrent registered date and time'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','cannot find torrent registered date and time'));
 	}
 
 	if (!isset($array[1]) || empty($array[1]))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','datetime field is not set or empty'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','datetime field is not set or empty'));
 	}
 
 	return $this->dateStringToNum($array[1]);
@@ -91,20 +91,20 @@ class RutrackerTracker implements ITracker
      * Download torrent file and return contents on specified subject.
      * @param string $url URL to download torrent.
      * @return mixed Downloaded content.
-     * @exception CException thrown when something goes wrong.
+     * @exception Exception thrown when something goes wrong.
      */
     public function downloadSubjectTorrent($url)
     {
 	if (!isset($this->cookie))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t download torrent:') . ' ' . Yii::t('components_RutrackerTracker','not logged in'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t download torrent:') . ' ' . Yii::t('components_RutrackerTracker','not logged in'));
 	}
 
 	$subjectId = $this->getSubjectId($url);
 
 	if (!isset($subjectId))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t download torrent:') . ' ' . Yii::t('components_RutrackerTracker','cannot get subject id'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t download torrent:') . ' ' . Yii::t('components_RutrackerTracker','cannot get subject id'));
 	}
 
 	$subjectId =  urlencode($subjectId);
@@ -144,7 +144,7 @@ class RutrackerTracker implements ITracker
 
     /**
      * Perform login to the tracker.
-     * @exception CException thrown when something goes wrong.
+     * @exception Exception thrown when something goes wrong.
      */
     public function login()
     {
@@ -181,23 +181,23 @@ class RutrackerTracker implements ITracker
      * Get cookie from login page.
      * @param string $page Page to parse.
      * @return Cookies or null if something wrong.
-     * @exception CException thrown when something goes wrong.
+     * @exception Exception thrown when something goes wrong.
      */
     private function getCookie($page)
     {
 	if (empty($page))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get cookie:') . ' ' . Yii::t('components_RutrackerTracker','page is empty'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get cookie:') . ' ' . Yii::t('components_RutrackerTracker','page is empty'));
 	}
 
         if (preg_match('/profile\.php\?mode=register/', $page, $array))
         {
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get cookie:') . ' ' . Yii::t('components_RutrackerTracker','wrong credentials'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get cookie:') . ' ' . Yii::t('components_RutrackerTracker','wrong credentials'));
         }
 
         if (!preg_match('/bb_data=(.+);/iU', $page, $array))
         {
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get cookie:') . ' ' . Yii::t('components_RutrackerTracker','cookie not found'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get cookie:') . ' ' . Yii::t('components_RutrackerTracker','cookie not found'));
 	}
 
         return 'bb_data='.$array[1].';';
@@ -207,20 +207,20 @@ class RutrackerTracker implements ITracker
       * Load subject page by specified URL.
       * @param string $url URL to load from.
       * @return string content or null if something wrong.
-      * @exception CException thrown when something goes wrong.
+      * @exception Exception thrown when something goes wrong.
       */
     private static function getContent($url)
     {
 	if (!isset($this->cookie))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get content:') . ' ' . Yii::t('components_RutrackerTracker','not logged in'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get content:') . ' ' . Yii::t('components_RutrackerTracker','not logged in'));
 	}
 
 	$subjectId = $this->getSubjectId($url);
 
 	if (!isset($subjectId))
 	{
-	    throw new CException(Yii::t('components_RutrackerTracker','Can\'t get content:') . ' ' . Yii::t('components_RutrackerTracker','cannot get subject id'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get content:') . ' ' . Yii::t('components_RutrackerTracker','cannot get subject id'));
 	}
 
 	$subjectId =  urlencode($subjectId);

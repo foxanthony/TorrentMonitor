@@ -1,9 +1,20 @@
 <?php
 
+/**
+ * Transmission torrent client
+ */
 class TransmissionClient extends AbstractClient
 {
+    /**
+     * @var TransmissionRPC TransmissionRPC class to interact with Transmission.
+     */
     private $rpc = null;
 
+    /**
+     * Performs client initialization.
+     * @param array $params. Client params.
+     * @exception Exception When something goes wrong.
+     */
     public function init($params)
     {
 	$username = $params['username'];
@@ -13,6 +24,12 @@ class TransmissionClient extends AbstractClient
 	$this->rpc = new TransmissionRPC($url,$username,$password);
     }
 
+    /**
+     * Add torrent into transmission client.
+     * @param string $torrent Torrent file content.
+     * @param string $id Not used.
+     * @exception Exception When something goes wrong.
+     */
     public function add($torrent, $id)
     {
 	$result = $this->rpc->add_metainfo($torrent);
@@ -23,6 +40,11 @@ class TransmissionClient extends AbstractClient
 	}
     }
 
+    /**
+     * Remove torrent from transmission client.
+     * @param string $torrent_hash Torrent hash to identify the torrent.
+     * @exception Exception When something goes wrong.
+     */
     public function remove($torrent_hash)
     {
 	$result = $this->rpc->remove(array($torrent_hash));

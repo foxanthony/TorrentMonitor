@@ -29,7 +29,6 @@ interface ITracker
      * Get last modified date and time on specified subject.
      * @param string $url URL to get datetime.
      * @return mixed Subject last modified date and time.
-     * @exception CException thrown when something goes wrong.
      */
     public function getSubjectLastUpdated($url);
 
@@ -37,7 +36,6 @@ interface ITracker
      * Download torrent file and return contents on specified subject.
      * @param string $url URL to download torrent.
      * @return mixed Downloaded content.
-     * @exception CException thrown when something goes wrong.
      */
     public function downloadSubjectTorrent($url);
 
@@ -55,7 +53,6 @@ interface ITracker
 
     /**
      * Perform login to the tracker.
-     * @exception CException thrown when something goes wrong.
      */
     public function login();
 
