@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Scheduler based tasks
+ */
 class UpdateCommand extends CConsoleCommand
 {
     /**
