@@ -44,7 +44,7 @@ class UpdateCommand extends CConsoleCommand
 	$tracker = Yii::app()->trackerManager->getSubjectTrackerByName($subject->tracker);
 
 	// is it null?
-	if ($tracker == null)
+	if (!isset($tracker))
         {
 	    // log error and skip
 	    Yii::log('The returned tracker name is null','error','Subjects update');
@@ -59,7 +59,7 @@ class UpdateCommand extends CConsoleCommand
 	// get subject last updated time
 	$time = $tracker->getSubjectLastUpdated($subject->url);
 
-	if ($subject->last_updated != null && $subject->last_updated >= $time) 
+	if (isset($subject->last_updated) && $subject->last_updated >= $time) 
 	{
 	    // subject is not up to date, skipping
 	    return;
@@ -79,12 +79,12 @@ class UpdateCommand extends CConsoleCommand
 	    $torrent_client = Yii::app()->torrentClient;
 
 	    // is it non first update running?
-	    if ($subject->torrent_id != null)
+	    if (isset($subject->torrent_id))
 	    {
 		$torrent = Torrent::model()->findByPk($subject->torrent_id);
 	
 		// db may be corrupted
-		if ($torrent == null)
+		if (!isset($torrent))
 		{
 		    // log error and skip
 		    Yii::log('Returned null instead of torrent object','error','Subjects update');
@@ -108,11 +108,12 @@ class UpdateCommand extends CConsoleCommand
 	    $torrent_client->add($torrent_content, $torrent_hash);
 
 	    // store new hash in db
-	    $torrent->torrent_hash = $torrent_client->getTorrentHash($torrent_content);
+	    $torrent->hash = $torrent_client->getTorrentHash($torrent_content);
 	    $torrent->save();
 
 	    // may be torrent is new. Anyway, just store torrent id in subject torrent_id
 	    $subject->torrent_id = $torrent->id;
+	    $subject->last_updated = $time;
 	    $subject->save();
 
 	    // commit transaction

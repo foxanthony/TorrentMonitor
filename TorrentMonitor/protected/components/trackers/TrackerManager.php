@@ -57,7 +57,7 @@ class TrackerManager extends CApplicationComponent
     {
 	$tracker = $this->trackersInt[$name];
 
-	if ($tracker != null && $tracker->actionsSupported()['subject_watch'])
+	if (isset($tracker) && $tracker->actionsSupported()['subject_watch'])
 	{
 	    return $tracker;
 	}
