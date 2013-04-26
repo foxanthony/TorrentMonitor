@@ -50,6 +50,23 @@ class TrackerManager extends CApplicationComponent
     }
 
     /**
+     * Get subject watch supported tracker by its name.
+     * @param string $name Tracker name
+     * @return ITracker implementation or null if tracker with provided name doesn't exist.
+     */
+    public function getSubjectTrackerByName($name)
+    {
+	$tracker = $this->trackersInt[$name];
+
+	if ($tracker != null && $tracker->actionSupported()['subject_watch'])
+	{
+	    return $tracker;
+	}
+
+	return null;
+    }
+
+    /**
      * Get tracker name the provided url belongs to.
      * @param string $url
      * @return string tracker name if URL is supported, null otherwise
@@ -65,6 +82,20 @@ class TrackerManager extends CApplicationComponent
 	}
 
 	return null;
+    }
+
+    /**
+     * Perform logout for all subject watchable tracker.
+     */
+    public function logoutSubjectSupported()
+    {
+	foreach ($this->trackersInt as $tracker)
+	{
+	    if ($tracker->actionSupported()['subject_watch'] && $tracker->isLoggedIn())
+	    {
+		$tracker->logout();
+	    }
+	}
     }
 }
 
