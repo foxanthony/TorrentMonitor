@@ -114,10 +114,10 @@ class RutrackerTracker implements ITracker
 	curl_setopt($ch, CURLOPT_USERAGENT, self::USER_AGENT);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_URL, 'http://dl.rutracker.org/forum/dl.php?t=' . subjectId);
-	curl_setopt($ch, CURLOPT_COOKIE, $this->cookie.'; bb_dl=' . subjectId);
-	curl_setopt($ch, CURLOPT_REFERER, 'http://dl.rutracker.org/forum/dl.php?t=' . subjectId);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, 't=' . subjectId);
+	curl_setopt($ch, CURLOPT_URL, 'http://dl.rutracker.org/forum/dl.php?t=' . $subjectId);
+	curl_setopt($ch, CURLOPT_COOKIE, $this->cookie.'; bb_dl=' . $subjectId);
+	curl_setopt($ch, CURLOPT_REFERER, 'http://dl.rutracker.org/forum/dl.php?t=' . $subjectId);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, 't=' . $subjectId);
 	$result = curl_exec($ch);
 	curl_close($ch);
 	
@@ -165,7 +165,7 @@ class RutrackerTracker implements ITracker
 	curl_close($ch);
 	
 	$page = iconv('windows-1251', 'utf-8', $result);
-	$this->cookie = getCookie($page);
+	$this->cookie = $this->getCookie($page);
     }
 
     /**
@@ -209,7 +209,7 @@ class RutrackerTracker implements ITracker
       * @return string content or null if something wrong.
       * @exception Exception thrown when something goes wrong.
       */
-    private static function getContent($url)
+    private function getContent($url)
     {
 	if (!isset($this->cookie))
 	{

@@ -15,11 +15,13 @@ class TransmissionClient extends AbstractClient
      * @param array $params. Client params.
      * @exception Exception When something goes wrong.
      */
-    public function init($params)
+    public function init()
     {
-	$username = $params['username'];
-	$password = $params['password'];
-	$url = $params['url'];
+	parent::init();
+
+	$username = $this->params['username'];
+	$password = $this->params['password'];
+	$url = $this->params['url'];
 
 	$this->rpc = new TransmissionRPC($url,$username,$password);
     }

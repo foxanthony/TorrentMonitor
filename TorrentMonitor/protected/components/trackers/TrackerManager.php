@@ -7,7 +7,6 @@ class TrackerManager extends CApplicationComponent
      */
     public $trackers = array();
 
-
     /**
      * @var array {@link ITracker} implementor instances
      */
@@ -40,7 +39,7 @@ class TrackerManager extends CApplicationComponent
 
 	    if (!isset($class))
 	    {
-		throw new CException(Yii::t('Array item with name \'class\' is not set'));
+		throw new Exception(Yii::t('Array item with name \'class\' is not set'));
 	    }
 	    
 	    $trackerInstance = new $class;
@@ -58,7 +57,7 @@ class TrackerManager extends CApplicationComponent
     {
 	$tracker = $this->trackersInt[$name];
 
-	if ($tracker != null && $tracker->actionSupported()['subject_watch'])
+	if ($tracker != null && $tracker->actionsSupported()['subject_watch'])
 	{
 	    return $tracker;
 	}
@@ -91,7 +90,7 @@ class TrackerManager extends CApplicationComponent
     {
 	foreach ($this->trackersInt as $tracker)
 	{
-	    if ($tracker->actionSupported()['subject_watch'] && $tracker->isLoggedIn())
+	    if ($tracker->actionsSupported()['subject_watch'] && $tracker->isLoggedIn())
 	    {
 		$tracker->logout();
 	    }

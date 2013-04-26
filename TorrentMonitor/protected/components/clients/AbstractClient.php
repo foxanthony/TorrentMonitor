@@ -6,10 +6,9 @@
 abstract class AbstractClient extends CApplicationComponent
 {
     /**
-     * Performs client initialization. Do really init there: open connection, send login request, etc.
-     * @params array $params Client params.
+     * @var array Array of client parameters
      */
-    abstract public function init($params);
+    public $params = null;
 
     /**
      * Add torrent into torrent client.

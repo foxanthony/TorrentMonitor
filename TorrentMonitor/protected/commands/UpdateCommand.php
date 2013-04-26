@@ -8,7 +8,7 @@ class UpdateCommand extends CConsoleCommand
     /**
      * Perform update action. This function will be run
      * every 20 minutes by crontab or another scheduler.
-     * @cron 20 * * * *
+     * @cron * * * * *
      */
     public function actionUpdate()
     {
