@@ -1,5 +1,6 @@
 <?php
-require_once('_common.inc');
+require_once('config.php');
+require_once('common.php');
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');

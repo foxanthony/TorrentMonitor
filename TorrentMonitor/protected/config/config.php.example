@@ -1,0 +1,39 @@
+<?php
+// -- User parameters --
+
+// Language
+$language= 'en';
+
+// Trackers
+$trackerManager = array(
+    'class' => 'TrackerManager',
+    'trackers' => array(
+	array('class' => 'RutrackerTracker', 'params' => array('username' => 'username','password' => 'password')),
+    )
+);
+
+// Client
+$torrentClient = array(
+    'class' => 'TransmissionClient',
+    'params' => array('url' => 'http://localhost:9091/transmission/rpc','username' => 'username','password' => 'password')
+);
+/*
+// MySQL
+$db = array(
+	'connectionString' => 'mysql:host=localhost;dbname=torrent_monitor',
+	'emulatePrepare' => true,
+	'username' => 'username',
+	'password' => 'password',
+	'charset' => 'utf8'
+);
+*/
+/*
+// Sqlite
+$db = array(
+	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/torrent_monitor.db',
+);
+*/
+
+$adminEmail = 'webmaster@example.com';
+
+?>
