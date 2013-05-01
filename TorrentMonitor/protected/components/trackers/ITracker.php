@@ -12,7 +12,7 @@ interface ITracker
     public function init($params);
 
     /**
-     * Return supported actions. There are the following actions possible: subject_watch.
+     * Return supported actions. There are the following actions possible: topic_watch.
      * @return array Dictionary with key as action name value as whether is action supported (true) or not (false).
      * If action is absent it means action is not supported.
      */
@@ -23,21 +23,21 @@ interface ITracker
      * @param string $url URL to check.
      * @return boolean True if URL belongs or false if not.
      */
-    public function isMySubject($url);
+    public function isMyTopic($url);
 
     /**
-     * Get last modified date and time on specified subject.
+     * Get last modified date and time on specified topic.
      * @param string $url URL to get datetime.
-     * @return mixed Subject last modified date and time.
+     * @return mixed Topic last modified date and time.
      */
-    public function getSubjectLastUpdated($url);
+    public function getTopicLastUpdated($url);
 
     /**
-     * Download torrent file and return contents on specified subject.
+     * Download torrent file and return contents on specified topic.
      * @param string $url URL to download torrent.
      * @return mixed Downloaded content.
      */
-    public function downloadSubjectTorrent($url);
+    public function downloadTopicTorrent($url);
 
     /**
      * Return human-readable tracker name. This name is used as unique identifier of the tracker.

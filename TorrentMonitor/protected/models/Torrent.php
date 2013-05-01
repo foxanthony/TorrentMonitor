@@ -8,7 +8,7 @@
  * @property string $hash
  *
  * The followings are the available model relations:
- * @property TorrentMonitorSubject[] $torrentMonitorSubjects
+ * @property TorrentMonitorTopic[] $torrentMonitorTopics
  */
 class Torrent extends CActiveRecord
 {
@@ -54,7 +54,7 @@ class Torrent extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'torrentMonitorSubjects' => array(self::HAS_MANY, 'TorrentMonitorSubject', 'torrent_id'),
+			'torrentMonitorTopics' => array(self::HAS_MANY, 'TorrentMonitorTopic', 'torrent_id'),
 		);
 	}
 

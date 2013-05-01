@@ -6,9 +6,9 @@
 class RutrackerTracker implements ITracker
 {
     /**
-     * Regex subject
+     * Regex topic
      */
-    const SUBJECT_REGEX = '!http://rutracker\.org/forum/viewtopic\.php\?t=(\d+)!';
+    const TOPIC_REGEX = '!http://rutracker\.org/forum/viewtopic\.php\?t=(\d+)!';
 
     /**
      * User agent
@@ -46,7 +46,7 @@ class RutrackerTracker implements ITracker
      */
     public function actionsSupported()
     {
-	return array('subject_watch' => true);
+	return array('topic_watch' => true);
     }
 
     /**
@@ -54,70 +54,70 @@ class RutrackerTracker implements ITracker
      * @param string $url URL to check.
      * @return boolean True if URL belongs or false if not.
      */
-    public function isMySubject($url)
+    public function isMyTopic($url)
     {
-	return preg_match(self::SUBJECT_REGEX, $url);
+	return preg_match(self::TOPIC_REGEX, $url);
     }
 
     /**
-     * Get last modified date and time on specified subject.
+     * Get last modified date and time on specified topic.
      * @param string $url URL to get datetime.
-     * @return mixed Subject last modified date and time.
+     * @return mixed Topic last modified date and time.
      * @exception Exception thrown when something goes wrong.
      */
-    public function getSubjectLastUpdated($url)
+    public function getTopicLastUpdated($url)
     {
 	$page = $this->getContent($url);
 
 	if (empty($page))
 	{
-	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','page is empty'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get topic last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','page is empty'));
 	}
 
 	if (!preg_match('/<span title="Когда зарегистрирован">\[ (.+) \]<\/span>/', $page, $array))
 	{
-	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','cannot find torrent registered date and time'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get topic last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','cannot find torrent registered date and time'));
 	}
 
 	if (!isset($array[1]) || empty($array[1]))
 	{
-	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get subject last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','datetime field is not set or empty'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get topic last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','datetime field is not set or empty'));
 	}
 
 	return $this->dateStringToNum($array[1]);
     }
 
     /**
-     * Download torrent file and return contents on specified subject.
+     * Download torrent file and return contents on specified topic.
      * @param string $url URL to download torrent.
      * @return mixed Downloaded content.
      * @exception Exception thrown when something goes wrong.
      */
-    public function downloadSubjectTorrent($url)
+    public function downloadTopicTorrent($url)
     {
 	if (!isset($this->cookie))
 	{
 	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t download torrent:') . ' ' . Yii::t('components_RutrackerTracker','not logged in'));
 	}
 
-	$subjectId = $this->getSubjectId($url);
+	$topicId = $this->getTopicId($url);
 
-	if (!isset($subjectId))
+	if (!isset($topicId))
 	{
-	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t download torrent:') . ' ' . Yii::t('components_RutrackerTracker','cannot get subject id'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t download torrent:') . ' ' . Yii::t('components_RutrackerTracker','cannot get topic id'));
 	}
 
-	$subjectId =  urlencode($subjectId);
+	$topicId =  urlencode($topicId);
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_USERAGENT, self::USER_AGENT);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_URL, 'http://dl.rutracker.org/forum/dl.php?t=' . $subjectId);
-	curl_setopt($ch, CURLOPT_COOKIE, $this->cookie.'; bb_dl=' . $subjectId);
-	curl_setopt($ch, CURLOPT_REFERER, 'http://dl.rutracker.org/forum/dl.php?t=' . $subjectId);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, 't=' . $subjectId);
+	curl_setopt($ch, CURLOPT_URL, 'http://dl.rutracker.org/forum/dl.php?t=' . $topicId);
+	curl_setopt($ch, CURLOPT_COOKIE, $this->cookie.'; bb_dl=' . $topicId);
+	curl_setopt($ch, CURLOPT_REFERER, 'http://dl.rutracker.org/forum/dl.php?t=' . $topicId);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, 't=' . $topicId);
 	$result = curl_exec($ch);
 	curl_close($ch);
 	
@@ -204,7 +204,7 @@ class RutrackerTracker implements ITracker
     }
 
     /**
-      * Load subject page by specified URL.
+      * Load topic page by specified URL.
       * @param string $url URL to load from.
       * @return string content or null if something wrong.
       * @exception Exception thrown when something goes wrong.
@@ -216,17 +216,17 @@ class RutrackerTracker implements ITracker
 	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get content:') . ' ' . Yii::t('components_RutrackerTracker','not logged in'));
 	}
 
-	$subjectId = $this->getSubjectId($url);
+	$topicId = $this->getTopicId($url);
 
-	if (!isset($subjectId))
+	if (!isset($topicId))
 	{
-	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get content:') . ' ' . Yii::t('components_RutrackerTracker','cannot get subject id'));
+	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get content:') . ' ' . Yii::t('components_RutrackerTracker','cannot get topic id'));
 	}
 
-	$subjectId =  urlencode($subjectId);
+	$topicId =  urlencode($topicId);
 
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'http://rutracker.org/forum/viewtopic.php?t=' . $subjectId);
+	curl_setopt($ch, CURLOPT_URL, 'http://rutracker.org/forum/viewtopic.php?t=' . $topicId);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -242,13 +242,13 @@ class RutrackerTracker implements ITracker
     }
 
     /**
-     * Extract subject id from specified URL.
+     * Extract topic id from specified URL.
      * @param string $url URL to parse from.
-     * @return string Subject id.
+     * @return string Topic id.
      */
-    private function getSubjectId($url)
+    private function getTopicId($url)
     {
-        if (preg_match(self::SUBJECT_REGEX, $url, $array))
+        if (preg_match(self::TOPIC_REGEX, $url, $array))
 	{
 	    return $array[1];
 	}

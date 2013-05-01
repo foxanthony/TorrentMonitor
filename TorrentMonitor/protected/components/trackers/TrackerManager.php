@@ -49,15 +49,15 @@ class TrackerManager extends CApplicationComponent
     }
 
     /**
-     * Get subject watch supported tracker by its name.
+     * Get topic watch supported tracker by its name.
      * @param string $name Tracker name
      * @return ITracker implementation or null if tracker with provided name doesn't exist.
      */
-    public function getSubjectTrackerByName($name)
+    public function getTopicTrackerByName($name)
     {
 	$tracker = $this->trackersInt[$name];
 
-	if (isset($tracker) && $tracker->actionsSupported()['subject_watch'])
+	if (isset($tracker) && $tracker->actionsSupported()['topic_watch'])
 	{
 	    return $tracker;
 	}
@@ -70,11 +70,11 @@ class TrackerManager extends CApplicationComponent
      * @param string $url
      * @return string tracker name if URL is supported, null otherwise
      */
-    public function getSubjectTrackerName($url)
+    public function getTopicTrackerName($url)
     {
 	foreach($this->trackersInt as $tracker)
 	{
-	    if ($tracker->actionsSupported()['subject_watch'] && $tracker->isMySubject($url))
+	    if ($tracker->actionsSupported()['topic_watch'] && $tracker->isMyTopic($url))
 	    {
 		return $tracker->getName();
 	    }
@@ -84,13 +84,13 @@ class TrackerManager extends CApplicationComponent
     }
 
     /**
-     * Perform logout for all subject watchable tracker.
+     * Perform logout for all topic watchable tracker.
      */
-    public function logoutSubjectSupported()
+    public function logoutTopicSupported()
     {
 	foreach ($this->trackersInt as $tracker)
 	{
-	    if ($tracker->actionsSupported()['subject_watch'] && $tracker->isLoggedIn())
+	    if ($tracker->actionsSupported()['topic_watch'] && $tracker->isLoggedIn())
 	    {
 		$tracker->logout();
 	    }

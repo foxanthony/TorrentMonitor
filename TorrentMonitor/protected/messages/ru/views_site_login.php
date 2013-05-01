@@ -17,7 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Fields with {asterisk} are required.' => 'Поля отмеченные значком {asterisk} обязательны для заполнения',
+  'Fields with {asterisk} are required.' => 'Поля отмеченные значком {asterisk} обязательны для заполнения.',
   'Login' => 'Вход',
   'Please fill out the following form with your login credentials:' => 'Пожалуйста, заполните приведенную ниже форму Вашими учетными данными:',
 );

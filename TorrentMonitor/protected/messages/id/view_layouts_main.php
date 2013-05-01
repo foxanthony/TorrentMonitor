@@ -19,5 +19,5 @@
 return array (
   'Login' => '',
   'Logout ({alias})' => '',
-  'Subjects' => '',
+  'Topics' => '',
 );

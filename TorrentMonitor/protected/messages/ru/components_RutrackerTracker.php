@@ -17,13 +17,13 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Can\'t get topic last updated date time:' => 'Невозможно получить дату и время последнего обновления темы:',
+  'cannot get topic id' => 'невозможно получить идентификатор темы',
   'Can\'t download torrent:' => 'Невозможно скачать торрент:',
-  'Can\'t get content:' => 'Невозможно получить содержимое',
-  'Can\'t get cookie:' => 'Невозможно получить cookie\'s',
-  'Can\'t get subject last updated date time:' => 'Невозможно получить дату и время последнего обновления',
+  'Can\'t get content:' => 'Невозможно получить содержимое:',
+  'Can\'t get cookie:' => 'Невозможно получить куки:',
   'cannot find torrent registered date and time' => 'невозможно найти дату и время регистрации',
-  'cannot get subject id' => 'невозможно получить идентификатор темы',
-  'cookie not found' => 'cookie не найдены',
+  'cookie not found' => 'куки не найдены',
   'datetime field is not set or empty' => 'поле даты и времени не установлены, либо пустое',
   'not logged in' => 'вход не выполнен',
   'page is empty' => 'страница пуста',
