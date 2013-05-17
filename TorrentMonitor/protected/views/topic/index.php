@@ -18,6 +18,13 @@ $this->breadcrumbs=array(
     'dataProvider'=>$dataProvider,
     'template'=>"{items}",
     'columns'=>array(
+	array(
+	    'name'=>'icon',
+	    'header'=>'',
+	    'type'=>'raw',
+	    'value'=>'$data->renderTrackerIcon();',
+	    'htmlOptions'=>array('style'=>'width: 50px')
+	),
         array('name'=>'title'),
         array('name'=>'url'),
         array('name'=>'tracker'),

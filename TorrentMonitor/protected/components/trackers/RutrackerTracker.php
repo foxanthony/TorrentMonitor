@@ -178,6 +178,15 @@ class RutrackerTracker implements ITracker
     }
 
     /**
+     * Get icon filename stored in 'images' folder.
+     * @return string Filename.
+     */
+    public function getIconFilename()
+    {
+	return 'rutracker.org.png';
+    }
+
+    /**
      * Get cookie from login page.
      * @param string $page Page to parse.
      * @return Cookies or null if something wrong.

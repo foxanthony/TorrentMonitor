@@ -60,6 +60,12 @@ interface ITracker
      * Perform logout.
      */
     public function logout();
+
+    /**
+     * Get icon filename stored in 'images' folder.
+     * @return string Filename.
+     */
+    public function getIconFilename();
 }
 
 ?>
