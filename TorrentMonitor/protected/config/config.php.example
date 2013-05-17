@@ -36,4 +36,7 @@ $db = array(
 
 $adminEmail = 'webmaster@example.com';
 
+$login = 'login';
+$password = 'password';
+
 ?>

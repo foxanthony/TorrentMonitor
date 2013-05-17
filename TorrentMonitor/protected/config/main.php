@@ -74,5 +74,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>$adminEmail,
+		'login'=>$login,
+		'password'=>$password
 	),
 );
