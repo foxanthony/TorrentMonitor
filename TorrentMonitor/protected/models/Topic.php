@@ -80,42 +80,6 @@ class Topic extends CActiveRecord
 	}
 
 	/**
-	 * Render tracker icon.
-	 * @return string String contains link to image.
-	 */
-	public function renderTrackerIcon()
-	{
-	    $trackerIconFilename = $this->getTrackerIconFilename();
-
-	    if (!isset($trackerIconFilename))
-	    {
-		return '<i class="icon-question-sign"></i>';
-	    }
-	    else
-	    {
-		return CHtml::image('/images/' . $this->getTrackerIconFilename(), $this->tracker, array('style'=>'width: 16px; height: 16px;'));
-	    }
-	}
-
-	/**
-	 * Retrieves tracker icon filename
-	 * @return string Filename or null if tracker is not found.
-	 */
-	public function getTrackerIconFilename()
-	{
-	    // get topic tracker
-	    $tracker = Yii::app()->trackerManager->getTopicTrackerByName($this->tracker);
-
-	    // is it null?
-	    if (!isset($tracker))
-            {
-	        return null;
-	    }
-
-	    return $tracker->getIconFilename();
-	}
-
-	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */

@@ -66,6 +66,44 @@ class TrackerManager extends CApplicationComponent
     }
 
     /**
+     * Render tracker icon.
+     * @param string $trackerName Tracker name.
+     * @return string String contains link to image.
+     */
+    public function renderTrackerIcon($trackerName)
+    {
+        $trackerIconFilename = $this->getTrackerIconFilename($trackerName);
+
+        if (!isset($trackerIconFilename))
+        {
+	    return '<i class="icon-question-sign"></i>';
+        }
+        else
+        {
+	    return CHtml::image('/images/' . $trackerIconFilename, $trackerName, array('style'=>'width: 16px; height: 16px;'));
+        }
+    }
+
+    /**
+     * Retrieves tracker icon filename
+     * @param string $trackerName Tracker name.
+     * @return string Filename or null if tracker is not found.
+     */
+    private function getTrackerIconFilename($trackerName)
+    {
+        // get topic tracker
+        $tracker = $this->getTopicTrackerByName($trackerName);
+
+        // is it null?
+        if (!isset($tracker))
+        {
+            return null;
+        }
+
+        return $tracker->getIconFilename();
+    }
+
+    /**
      * Get tracker name the provided url belongs to.
      * @param string $url
      * @return string tracker name if URL is supported, null otherwise

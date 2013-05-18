@@ -22,7 +22,7 @@ $this->breadcrumbs=array(
 	    'name'=>'icon',
 	    'header'=>'',
 	    'type'=>'raw',
-	    'value'=>'$data->renderTrackerIcon();',
+	    'value'=>'Yii::app()->trackerManager->renderTrackerIcon($data->tracker);',
 	    'htmlOptions'=>array('style'=>'width: 50px')
 	),
         array('name'=>'title'),
