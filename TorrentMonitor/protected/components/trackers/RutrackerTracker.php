@@ -26,6 +26,11 @@ class RutrackerTracker implements ITracker
     private $password;
 
     /**
+     * @var string Timezone offset in user profile (format: (+|-)H:m).
+     */
+    private $timezone;
+
+    /**
      * @var string Stored cookies to interact with tracker.
      */
     private $cookie = null;
@@ -38,6 +43,21 @@ class RutrackerTracker implements ITracker
     {
 	$this->username = $params['username'];
 	$this->password = $params['password'];
+	$timezone = $params['timezone'];
+
+	if ($timezone >= 0)
+	{
+	    $sign = '+';
+	}
+	else
+	{
+	    $sign = '-';
+	    $timezone = -$timezone;
+	}
+
+	$hours = $timezone / 60;
+	$minutes = $timezone % 60;
+	$this->timezone = $sign . $hours . ':' . $minutes;
     }
 
     /**
@@ -84,7 +104,7 @@ class RutrackerTracker implements ITracker
 	    throw new Exception(Yii::t('components_RutrackerTracker','Can\'t get topic last updated date time:') . ' ' . Yii::t('components_RutrackerTracker','datetime field is not set or empty'));
 	}
 
-	return $this->dateStringToNum($array[1]);
+	return $this->dateStringToTimestamp($array[1]);
     }
 
     /**
@@ -266,18 +286,16 @@ class RutrackerTracker implements ITracker
     }
 
     /**
-     * Convert rutracker date time to string.
-     * @param string $data string to parse.
+     * Convert rutracker date time to unix timestamp.
+     * @param string $dateString string to parse.
      * @return timestamp Extracted date and time.
      */
-    private function dateStringToNum($data)
+    private function dateStringToTimestamp($dateString)
     {
 	$monthes = array('Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек');
-	$month = substr($data, 3, 6);
-	$date = preg_replace('/(\d\d)-(\d\d)-(\d\d)/', '$3-$2-$1', str_replace($month, str_pad(array_search($month, $monthes)+1, 2, 0, STR_PAD_LEFT), $data));
-	$date = date('Y-m-d H:i:s', strtotime($date));
-	
-	return $date;
+	$month = substr($dateString, 3, 6);
+	$date = preg_replace('/(\d\d)-(\d\d)-(\d\d)/', '$3-$2-$1', str_replace($month, str_pad(array_search($month, $monthes)+1, 2, 0, STR_PAD_LEFT), $dateString));
+	return strtotime($date . $this->timezone);
     }
 }
 

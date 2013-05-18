@@ -61,7 +61,7 @@ class UpdateCommand extends CConsoleCommand
 
 	if (isset($topic->last_updated) && $topic->last_updated >= $time) 
 	{
-	    // topic is not up to date, skipping
+	    // topic is up to date, skipping
 	    return;
 	}
 

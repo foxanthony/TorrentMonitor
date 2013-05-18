@@ -8,7 +8,7 @@ $language= 'en';
 $trackerManager = array(
     'class' => 'TrackerManager',
     'trackers' => array(
-	array('class' => 'RutrackerTracker', 'params' => array('username' => 'username','password' => 'password')),
+	array('class' => 'RutrackerTracker', 'params' => array('username' => 'username','password' => 'password','timezone' => '240')),
     )
 );
 

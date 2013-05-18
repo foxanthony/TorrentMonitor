@@ -101,4 +101,61 @@ class Topic extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	/**
+	 * Do before save actions.
+	 */
+	protected function beforeSave()
+	{
+	    $result = parent::beforeSave();
+
+	    if ($result)
+	    {
+		$this->convertFromTimestamp();
+	    }
+
+	    return $result;
+	}
+
+	/**
+	 * Do after save actions.
+	 */
+	protected function afterSave()
+	{
+	    parent::afterSave();
+
+	    $this->convertToTimestamp();
+	}
+
+	/**
+	 * Do after find actions.
+	 */
+	protected function afterFind()
+	{
+	    parent::afterFind();
+
+	    $this->convertToTimestamp();
+	}
+
+	/**
+	 * Convert timestamp fields to string using locale independent format.
+	 */
+	private function convertFromTimestamp()
+	{
+	    if (isset($this->last_updated))
+	    {
+		$this->last_updated = date('Y-m-d H:i:s O',$this->last_updated);
+	    }
+	}
+
+	/**
+	 * Convert timestamp fields from string using locale independent format.
+	 */
+	private function convertToTimestamp()
+	{
+	    if (isset($this->last_updated))
+	    {
+		$this->last_updated = strtotime($this->last_updated);
+	    }
+	}
 }
