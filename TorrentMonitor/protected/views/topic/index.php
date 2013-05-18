@@ -28,7 +28,10 @@ $this->breadcrumbs=array(
         array('name'=>'title'),
         array('name'=>'url'),
         array('name'=>'tracker'),
-        array('name'=>'last_updated'),
+        array(
+	    'name'=>'last_updated',
+	    'value'=>'Yii::app()->dateFormatter->formatDateTime($data->last_updated)'
+	),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
 	    'template'=>'{delete}',
