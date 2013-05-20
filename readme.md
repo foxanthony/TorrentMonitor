@@ -1,4 +1,4 @@
-# TorrentMonitor
+#TorrentMonitor
 The application watches changes on the popular torrent trackers and automatically updates downloads (series, reuploaded torrent files, etc) on your favorite client.
 
 ###Supported trackers:
@@ -19,7 +19,7 @@ The application watches changes on the popular torrent trackers and automaticall
 
 You may choose the standalone Yii installation or embedded.
 
-# Using standalone Yii instalation
+###Using standalone Yii instalation
 
 Clone TorrentMonitor into temporary folder (for example: /tmp/TorrentMonitor)
 
@@ -49,7 +49,20 @@ Remove all /tmp/TorrentMonitor files. Be careful! Double check the command you a
 # rm -rf /tmp/TorrentMonitor
 ```
 
-# Using embedded Yii installation
+Change directories owner to www-server user.
+
+```
+# chown http:http /path/to/www -R
+```
+
+Make sure that /path/to/yii onwer is www-server user. And if it doesn't use the following command to 
+change it.
+
+```
+# chown http:http /path/to/yii -R
+```
+
+###Using embedded Yii installation
 
 Clone TorrentMonitor into temporary folder (for example: /tmp/TorrentMonitor).
 
@@ -89,6 +102,13 @@ Remove all /tmp/TorrentMonitor files. Be careful! Double check the command you a
 # rm -rf /tmp/TorrentMonitor
 ```
 
+Change directories owner to www-server user.
+
+```
+# chown http:http /path/to/yii -R
+# chown http:http /path/to/www -R
+```
+
 ###Configuration:
 
 Go to the TorrentMonitor folder (where index.php is located).
@@ -115,7 +135,7 @@ Just run the following command:
 /path/to/protected/yiic migrate up
 ```
 
-###Configurate cron
+###Configurate schedule
 
 Add into cron the following string:
 
@@ -131,22 +151,26 @@ You need to change the following parameters in php.ini (in CLI as well as in www
 ; Increase maximum execution time of each script, in seconds
 max_execution_time = 300
 
-; Define the default timezone
+; Define the default timezone (use your own parameters)
 date.timezone = Europe/Moscow
 
 ; Allow the treatment of URLs (like http:// or ftp://) as files
 allow_url_fopen = on
+
+; Allow open directories (use your own parameters)
+open_basedir = /tmp/:/path/to/www:/path/to/yii
 ```
 
 Install PHP modules using your packet manager: CURL, MySQL client, PDO-MySQL, Sqlite client, PDO-Sqlite, PostgreSQL client, PDO-PostgreSQL.
 You need to install just one database client which you really want to use with TorrentMonitor.
 
+Do not forget enable modules you need (consult distib documentation).
+
 ###Updating:
 
 Backup your config.php. Remove all files related to TorrentMonitor (you can keep Yii framework files if you want).
-Reinstall TorrentMonitor (skip database migration and config.php changing). Restore config.php.
-Consult config.php.example for new features and alter changes into the old config.php file.
-After that just run database migration invoking the following command:
+Instead of copying config.php.example into config.php, restore config.php, consult config.php.example for new features, change
+config.php file according to sample. Do not forget about database migration.
 
 ```
 /path/to/protected/yiic migrate up
