@@ -73,7 +73,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>$adminEmail,
+		'notifyEmail'=>$notifyEmail,
 		'login'=>$login,
 		'password'=>$password
 	),

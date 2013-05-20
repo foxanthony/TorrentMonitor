@@ -34,7 +34,16 @@ $db = array(
 );
 */
 
-$adminEmail = 'webmaster@example.com';
+// Yii-mail extension transport options. Go to http://www.yiiframework.com/extension/mail/ for more details.
+$mail = array(
+	    'host' => 'smtp.example.com',
+	    'username' => 'username',
+	    'password' => 'password',
+//	    'port' => '465',
+//	    'encryption'=>'tls',
+);
+
+$notifyEmail = 'webmaster@example.com';
 
 $login = 'login';
 $password = 'password';

@@ -24,6 +24,14 @@ return array(
 				),
 			),
 		),
+		'mail' => array(
+		    'class' => 'ext.yii-mail.YiiMail',
+		    'transportType' => 'smtp',
+		    'transportOptions' => $mail,
+		    'viewPath' => 'application.views.mail',
+		    'logging' => true,
+		    'dryRun' => false
+		),
 	),
 	'commandMap'=>array(
 	    'migrate'=>array(
@@ -33,5 +41,8 @@ return array(
 		'connectionID'=>'db',
 	    ),
 	    'cron'=>'ext.PHPDocCrontab.PHPDocCrontab'
-    ),
+	),
+	'params'=>array(
+	    'notifyEmail'=>$notifyEmail
+	)
 );
