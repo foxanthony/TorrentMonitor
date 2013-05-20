@@ -15,7 +15,7 @@ The application watches changes on the popular torrent trackers and automaticall
 * MySQL, PostgreSQL, SQLite
 * Yii framework 1.1.13 (optional, can be cloned with TorrentMonitor)
 
-###Installing:
+##Installing:
 
 You may choose the standalone Yii installation or embedded.
 
@@ -109,7 +109,7 @@ Change directories owner to www-server user.
 # chown http:http /path/to/www -R
 ```
 
-###Configuration:
+###Configuration
 
 Go to the TorrentMonitor folder (where index.php is located).
 
@@ -127,7 +127,7 @@ Open config.php with you favorite text editor. Fill language, torrent trackers c
 Choose database type and its connection options. If you don't want to use some trackers you should comment them.
 Set up your config and save.
 
-###Database initialization
+###Database initialization (updating)
 
 Just run the following command:
 
@@ -143,7 +143,7 @@ Add into cron the following string:
 * * * * *	/path/to/www/protected/yiic cron run
 ```
 
-###PHP settings:
+###PHP settings
 
 You need to change the following parameters in php.ini (in CLI as well as in www-server):
 
@@ -166,7 +166,7 @@ You need to install just one database client which you really want to use with T
 
 Do not forget enable modules you need (consult distib documentation).
 
-###Updating:
+##Updating
 
 Backup your config.php. Remove all files related to TorrentMonitor (you can keep Yii framework files if you want).
 Instead of copying config.php.example into config.php, restore config.php, consult config.php.example for new features, change
