@@ -7,7 +7,8 @@ $import = array(
     'application.models.*',
     'application.components.*',
     'application.components.trackers.*',
-    'application.components.clients.*'
+    'application.components.clients.*',
+    'ext.yii-mail.YiiMailMessage'
 );
 
 // preloading 'log' component

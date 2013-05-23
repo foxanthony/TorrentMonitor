@@ -44,6 +44,7 @@ $mail = array(
 );
 
 $notifyEmail = 'webmaster@example.com';
+$senderEmail = 'username@example.com';
 
 $login = 'login';
 $password = 'password';

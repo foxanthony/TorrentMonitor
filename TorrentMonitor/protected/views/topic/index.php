@@ -30,7 +30,7 @@ $this->breadcrumbs=array(
         array('name'=>'tracker'),
         array(
 	    'name'=>'last_updated',
-	    'value'=>'Yii::app()->dateFormatter->formatDateTime($data->last_updated)'
+	    'value'=>'$data->formatLastUpdated();'
 	),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',

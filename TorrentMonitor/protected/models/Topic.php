@@ -103,6 +103,30 @@ class Topic extends CActiveRecord
 	}
 
 	/**
+	 * Delete topic and associated torrent file (if exists)
+	 */
+	public function delete()
+	{
+	    $torrentId = $this->torrent_id;
+
+	    parent::delete();
+
+	    if (isset($torrentId))
+	    {
+	        Torrent::model()->deleteByPk($torrentId);
+	    }
+	}
+
+	/**
+	 * Format last_updated field using Yii date formatter.
+	 * @return string Formatted date and time.
+	 */
+	public function formatLastUpdated()
+	{
+	    return isset($this->last_updated) ? Yii::app()->dateFormatter->formatDateTime($this->last_updated) : Yii::t('Topic','Never');
+	}
+
+	/**
 	 * Do before save actions.
 	 */
 	protected function beforeSave()

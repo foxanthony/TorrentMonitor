@@ -43,6 +43,7 @@ return array(
 	    'cron'=>'ext.PHPDocCrontab.PHPDocCrontab'
 	),
 	'params'=>array(
-	    'notifyEmail'=>$notifyEmail
+	    'notifyEmail'=>$notifyEmail,
+	    'senderEmail'=>$senderEmail
 	)
 );

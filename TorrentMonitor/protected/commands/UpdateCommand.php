@@ -18,7 +18,7 @@ class UpdateCommand extends CConsoleCommand
     /**
      * Perform update topics.
      */
-    public function updateTopics()
+    private function updateTopics()
     {
 	$topics = Topic::model()->findAll();
 	
@@ -30,7 +30,8 @@ class UpdateCommand extends CConsoleCommand
 	    }
 	    catch (Exception $e)
 	    {
-		Yii::log('Cannot process topic: ' . $e->getMessage(),'error','Topics update');
+		Yii::log('Cannot process topic: ' . $e->getMessage(),'error', 'Topics update');
+		Notifier::modelNotify('updateTopicError', $e, Yii::t('mail', 'Error during topic updation'));
 	    }
 	}
 
@@ -45,10 +46,9 @@ class UpdateCommand extends CConsoleCommand
 
 	// is it null?
 	if (!isset($tracker))
-        {
-	    // log error and skip
-	    Yii::log('The returned tracker name is null','error','Topics update');
-	    return;
+	{
+	    // throw Exception
+	    throw new Exception('The returned tracker name is null');
 	}
 
 	if (!$tracker->isLoggedIn())
@@ -86,10 +86,8 @@ class UpdateCommand extends CConsoleCommand
 		// db may be corrupted
 		if (!isset($torrent))
 		{
-		    // log error and skip
-		    Yii::log('Returned null instead of torrent object','error','Topics update');
-		    $transaction->rollback();
-		    return;
+		    // throw Exception
+		    throw new Exception('Returned null instead of torrent object');
 		}
 
 		// remove old torrent from client
@@ -118,11 +116,20 @@ class UpdateCommand extends CConsoleCommand
 
 	    // commit transaction
 	    $transaction->commit();
+
+	    Notifier::modelNotify('updateTopic', $topic, Yii::t('mail','Topic `{topic}` has been updated',array('{topic}' => $topic->title)));
 	}
 	catch (Exception $e)
 	{
-	    // rollback transacation
-	    $transaction->rollback();
+	    try
+	    {
+		// rollback transacation
+		$transaction->rollback();
+	    }
+	    catch (Exception $e1)
+	    {
+		Notifier::modelNotify('updateTopicError', $e1, Yii::t('mail','Error during topic updation'));
+	    }
 
 	    // and rethrow exception
 	    throw $e;
