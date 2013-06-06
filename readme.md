@@ -162,7 +162,8 @@ open_basedir = /tmp/:/path/to/www:/path/to/yii
 ```
 
 Install PHP modules using your packet manager: CURL, MySQL client, PDO-MySQL, Sqlite client, PDO-Sqlite, PostgreSQL client, PDO-PostgreSQL.
-You need to install just one database client which you really want to use with TorrentMonitor.
+You need to install just one database client which you really want to use with TorrentMonitor. You also need to enable OpenSSL PHP extension if
+you use TLS/SSL secured SMTP-server.
 
 Do not forget enable modules you need (consult distib documentation).
 
