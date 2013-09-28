@@ -80,7 +80,7 @@ class TrackerManager extends CApplicationComponent
         }
         else
         {
-	    return CHtml::image('/images/' . $trackerIconFilename, $trackerName, array('style'=>'width: 16px; height: 16px;'));
+	    return CHtml::image(Yii::app()->request->getBaseUrl() . '/images/' . $trackerIconFilename, $trackerName, array('style'=>'width: 16px; height: 16px;'));
         }
     }
 
