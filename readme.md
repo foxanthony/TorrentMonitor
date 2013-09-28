@@ -13,7 +13,7 @@ The application watches changes on the popular torrent trackers and automaticall
 * Web-server (Apache, nginx, lighttpd)
 * PHP (5.2 or above) with cURL and PDO
 * MySQL, PostgreSQL, SQLite
-* Yii framework 1.1.13 (optional, can be cloned with TorrentMonitor)
+* Yii framework 1.1.14 (optional, can be cloned with TorrentMonitor)
 
 ##Installing:
 
